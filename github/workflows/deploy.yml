@@ -17,25 +17,16 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Deploy Function
-        uses: actions/github-script@v6
+      - name: Create Dist Directory
+        run: |
+          mkdir -p dist/api
+          cp .github/api/generate.js dist/api/
+      
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            
-            const functionPath = path.join(process.env.GITHUB_WORKSPACE, '.github/api/generate.js');
-            const functionContent = fs.readFileSync(functionPath, 'utf8');
-            
-            await github.rest.repos.createOrUpdateFileContents({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              path: 'api/generate.js',
-              message: 'Deploy API function',
-              content: Buffer.from(functionContent).toString('base64'),
-              branch: 'gh-pages'
-            });
+          branch: gh-pages
+          folder: dist
 
         env:
           GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
