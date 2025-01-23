@@ -4,10 +4,15 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
-# Other files and folders
-.settings/
+
+# Ignora file specifici
 .github.generate.js
 .github.api
+
+
+# Other files and folders
+.settings/
+
 
 # Executables
 *.swf
