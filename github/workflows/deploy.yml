@@ -23,8 +23,10 @@ jobs:
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          branch: gh-pages
+          branch: gh-pages  # Questo creerà il branch se non esiste
           folder: dist
+          clean: true      # Pulisce i file vecchi
+          force: true      # Forza la creazione del branch
 
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
