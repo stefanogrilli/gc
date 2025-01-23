@@ -6,8 +6,8 @@ bin-release/
 
 # Other files and folders
 .settings/
-.generate.js
-.api
+.github.generate.js
+.github.api
 
 # Executables
 *.swf
