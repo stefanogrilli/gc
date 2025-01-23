@@ -1,0 +1,13 @@
+{
+  "name": "gc",
+  "version": "1.0.0",
+  "description": "Google AI API Integration",
+  "scripts": {
+    "build": "mkdir -p dist/api && cp .github/api/generate.js dist/api/",
+    "start": "node .github/api/generate.js"
+  },
+  "dependencies": {
+    "@google-ai/generativelanguage": "^1.1.0",
+    "google-auth-library": "^9.0.0"
+  }
+}
