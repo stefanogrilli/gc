@@ -2,9 +2,10 @@
   "name": "gc",
   "version": "1.0.0",
   "description": "Google AI API Integration",
+  "type": "module",
   "scripts": {
-    "build": "mkdir -p dist/api && cp .github/api/generate.js dist/api/",
-    "start": "node .github/api/generate.js"
+    "build": "mkdir -p dist && cp generate.js dist/",
+    "start": "node generate.js"
   },
   "dependencies": {
     "@google-ai/generativelanguage": "^1.1.0",
