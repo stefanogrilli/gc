@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+  // Abilita CORS per il tuo dominio
   res.setHeader('Access-Control-Allow-Credentials', true)
   res.setHeader('Access-Control-Allow-Origin', 'https://stefanogrilli.it')
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS')
@@ -25,7 +26,7 @@ export default async function handler(req, res) {
       const data = await response.json();
       res.status(200).json(data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error calling Google AI:', error);
       res.status(500).json({ error: error.message });
     }
   }
