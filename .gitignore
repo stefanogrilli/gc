@@ -4,12 +4,6 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 
-
-# Ignora file specifici
-.github.generate.js
-.github.api
-
-
 # Other files and folders
 .settings/
 
