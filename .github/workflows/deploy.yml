@@ -1,4 +1,4 @@
-name: Deploy tryAi
+name: Deploy API
 on:
   push:
     branches: [ main ]
@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
@@ -17,17 +17,25 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Create .env file
-        run: |
-          echo "GOOGLE_AI_API_KEY=${{ secrets.GOOGLE_AI_API_KEY }}" > .env
-          echo "PORT=3000" >> .env
-          echo "CORS_ORIGIN=https://stefanogrilli.it" >> .env
-
-      - name: Build
-        run: npm run build
-
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@4.1.5
+      - name: Deploy Function
+        uses: actions/github-script@v6
         with:
-          branch: gh-pages
-          folder: dist
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            
+            const functionPath = path.join(process.env.GITHUB_WORKSPACE, '.github/api/generate.js');
+            const functionContent = fs.readFileSync(functionPath, 'utf8');
+            
+            await github.rest.repos.createOrUpdateFileContents({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: 'api/generate.js',
+              message: 'Deploy API function',
+              content: Buffer.from(functionContent).toString('base64'),
+              branch: 'gh-pages'
+            });
+
+        env:
+          GOOGLE_AI_API_KEY: ${{ secrets.GOOGLE_AI_API_KEY }}
